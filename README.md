@@ -1,7 +1,10 @@
 #  kubectl
 export KUBE_EDITOR="nano"
+
 source <(kubectl completion bash)
+
 echo "source <(kubectl completion bash)" >> ~/.bashrc
+
 KUBECONFIG=~/.kube/config:~/.kube/kubconfig2
 
 ### Application Lifecycle Management
