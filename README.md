@@ -1,4 +1,8 @@
 #  kubectl
+
+
+### Usecase 
+
 export KUBE_EDITOR="nano"
 
 source <(kubectl completion bash)
