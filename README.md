@@ -71,6 +71,15 @@ kubectl create -n ngx secret generic admins --from-file=secrets
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 
         - --kubelet-insecure-tls
+
+kubectl autoscale deploy nginx --min 1 --max 5 --cpu-percent 20
+
+siege -q -c 5 -t 2m http://kmaster:31784
+
+stress --vm 2 --vm-bytes 200M
+
+https://github.com/kubernetes/autoscaler.git
+
 ```
 
 # - ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+)`Network`
