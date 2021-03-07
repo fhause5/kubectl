@@ -37,3 +37,9 @@ function worker_update {
     # Make worker node reschedulable
     kubectl uncordon kworker1 # On master node, or on worker node if you have proper config
 }
+
+function master_centos {
+#https://v1-19.docs.kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/
+yum list --showduplicates kubeadm --disableexcludes=kubernetes
+yum install -y kubeadm-1.20.4-0 --disableexcludes=kubernetes
+}
