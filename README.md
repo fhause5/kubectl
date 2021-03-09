@@ -1,5 +1,58 @@
 #  kubectl
 
+### Nerwork
+
+* Node will remain NotReady until a network plugin is installed
+* dns server in kube-system
+* kubeadm use CoreDNS
+* 192-168-10-100.namespaces.pod.cluster.local (without service)
+* service endpoints kubectl get endpoints svc-clusterip
+* service.namespaces.svc.cluster.local
+
+
+
+### Imperative commands
+
+```
+kubectl create deployment my-deployment --image=nginx
+```
+
+### Recod the last command to annotaion
+
+```
+kubectl scale deploy nginx replicas=2 -record
+
+```
+
+### To issign to a specific node need write a node name or label
+
+Deamon set
+```
+selector:
+  matchLabel:
+    app: worker
+
+```
+
+### Static pods, mean no K8s Api, only pod. Kubelet cretes mirror of the pod
+
+> just a yaml in /etc/kubernetes/manifests/
+
+### Apply whole yaml
+
+```
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret
+type: Opaque
+data:
+  password: $(echo -n "s33msi4" | base64 -w0)
+  username: $(echo -n "jane" | base64 -w0)
+EOF
+```
+
 
 ### Usecase
 ```
@@ -11,6 +64,10 @@ echo "source <(kubectl completion bash)" >> ~/.bashrc
 source ~/.bashrc
 
 KUBECONFIG=~/.kube/config:~/.kube/kubconfig2
+
+kubectl api-resources
+
+kubectl -n default get po test-nginx-ingress-controller-6bf4b4f554-nqq5g -o wide --sort-by .spec.nodeName
 
 kubectl run busybox --image=busybox --rm -it --restart=Never -- sh
 
